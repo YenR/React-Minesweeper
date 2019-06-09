@@ -324,7 +324,7 @@ ReactDOM.render(
 function checkIfWon(squares, bombs)
 {
     for(let i in squares)
-        for(let j in i)
+        for(let j in squares[i])
         {
             if(bombs[i][j] !== '💣' && (squares[i][j] === null || squares[i][j] === '🚩'))
                 return false;
