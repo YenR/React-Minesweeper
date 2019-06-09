@@ -108,7 +108,7 @@ class Game extends React.Component {
     {
         //e.preventDefault();
 
-        if(this.state.lost || checkIfWon(this.state.squares))
+        if(this.state.lost || checkIfWon(this.state.squares, this.state.bombs))
             return;
 
         const squares = this.state.squares.slice();
@@ -206,7 +206,7 @@ class Game extends React.Component {
 
         const numberBombs = {
             s : 10,
-            m : 24,
+            m : 25,
             l : 50,
             xl: 150,
         }
@@ -290,7 +290,7 @@ class Game extends React.Component {
             restartButton = <button onClick={() => this.clickRestart()}>{"Restart"}</button>;
         }
 
-        if(checkIfWon(this.state.squares))
+        if(checkIfWon(this.state.squares, this.state.bombs))
         {
             restartButton = <button onClick={() => this.clickRestart()}>{"😎 Restart 😎"}</button>;
         }
@@ -321,12 +321,12 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-function checkIfWon(squares)
+function checkIfWon(squares, bombs)
 {
-    for(let i of squares)
-        for(let j of i)
+    for(let i in squares)
+        for(let j in i)
         {
-            if(j === null || j === '💣')
+            if(bombs[i][j] !== '💣' && (squares[i][j] === null || squares[i][j] === '🚩'))
                 return false;
         }
     return true;
